@@ -9,6 +9,15 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            TreeNode tn = new TreeNode(1);
+            TreeNode tn3 = new TreeNode(3);
+            tn3.children.Add(new TreeNode(5));
+            tn3.children.Add(new TreeNode(6));
+            tn.children.Add(tn3);
+            tn.children.Add(new TreeNode(2));
+            tn.children.Add(new TreeNode(4));
+            tn.Preorder1(tn);
+            tn.MaxArea(new int[] { 1, 8, 6, 2, 5, 4, 8, 3, 7 });
             BinaryTree tree = new BinaryTree();
             tree.orderTest();
             tree.isvalid();
