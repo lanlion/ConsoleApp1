@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// 树
+    /// </summary>
     public class TreeNode
     {
         public int val;
@@ -66,16 +69,19 @@ namespace ConsoleApp1
 
             return res;
         }
+      
+
+
 
         public int MaxArea(int[] height)
         {
             int left = 0;
-            int right = height.Length-1;
+            int right = height.Length - 1;
             int ans = 0;
-            while (left<right)
+            while (left < right)
             {
-                ans = Math.Max(ans,(right-left)*Math.Min(height[left],height[right]));
-                if (height[left]>height[right])
+                ans = Math.Max(ans, (right - left) * Math.Min(height[left], height[right]));
+                if (height[left] > height[right])
                 {
                     right--;
                 }
@@ -87,4 +93,6 @@ namespace ConsoleApp1
             return ans;
         }
     }
+
+   
 }

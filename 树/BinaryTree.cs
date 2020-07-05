@@ -98,6 +98,31 @@ namespace ConsoleApp1
             bool isok = string.Join(",", list) == string.Join(",", newlist);
             
         }
+        public int MaxDepth(BTreeNode root)
+        {
+            if (root == null) return 0;
+            Queue<BTreeNode> tmpqueue = new Queue<BTreeNode>();
+            tmpqueue.Enqueue(root);
+            int depth = 0;
+            while (tmpqueue.Count != 0)
+            {
+                int size = tmpqueue.Count;
+                for (int i = 0; i < size; i++)
+                {
+                    BTreeNode temp = tmpqueue.Dequeue();
+                    if (temp.lchild != null)
+                    {
+                        tmpqueue.Enqueue(temp.lchild);
+                    }
+                    if (temp.rchild != null)
+                    {
+                        tmpqueue.Enqueue(temp.rchild);
+                    }
+                }
+                depth++;
+            }
+            return depth;
+        }
     }
     public class BTreeNode
     {

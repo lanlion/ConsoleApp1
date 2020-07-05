@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// 二分查找
+    /// </summary>
    public class Bsearch
     {
         public int getindex()
