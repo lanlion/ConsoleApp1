@@ -9,18 +9,38 @@ namespace ConsoleApp1
 /// </summary>
     public class BinaryTree
     {
-         List<int> list = new List<int>();
-         BTreeNode root;
+        List<int> list = new List<int>();
+        BTreeNode root;
         public BinaryTree()
         {//          3
-            //    1      5 
-            //  0   2
+         //    1      5 
+         //  0   2
+            init();
+        }
+        private void init()
+        {//          3
+         //    1      5 
+         //  0   2
+         
             BTreeNode left = new BTreeNode(1);
             left.lchild = new BTreeNode(0);
             left.rchild = new BTreeNode(2);
             BTreeNode right = new BTreeNode(5);
             root = new BTreeNode(3, left, right);
+
+           
         }
+        private void init1()
+        { //    1
+            //         2
+            //     3
+            BTreeNode right1 = new BTreeNode(2);
+            right1.lchild = new BTreeNode(3);
+
+            root = new BTreeNode(1, null, right1);
+        }
+        #region 中序遍历
+     
         /// <summary>
         /// 中序
         /// </summary>
@@ -37,6 +57,63 @@ namespace ConsoleApp1
             inorder(tmp.rchild);
 
         }
+        public IList<int> inorder1()
+        {           
+            init();
+            List<int> list = new List<int>();
+            if (root == null)
+            {
+                return list;
+            }
+            Stack<BTreeNode> st = new Stack<BTreeNode>();
+            st.Push(root);
+            while (st.Count > 0)
+            {
+                while (root.lchild != null)
+                {
+                    root = root.lchild;
+                    st.Push(root);
+                }
+                var node = st.Pop();
+                list.Add(node.data);
+                if (node.rchild != null)
+                {
+                    root = node.rchild;
+                    st.Push(root);
+                  
+                   
+                }
+            }
+            return list;
+        }
+        public void inorder2()
+        {
+            init();
+            if (root==null)
+            {
+                return;
+            }
+            Stack<BTreeNode> st = new Stack<BTreeNode>();
+            st.Push(root);
+            while (st.Count>0)
+            {
+                while (root.lchild!=null)
+                {
+                    root = root.lchild;
+                    st.Push(root);
+                }
+                var node = st.Pop();
+                Console.WriteLine(node.data);
+                while (node.rchild!=null)
+                {
+                    node = node.rchild;
+                    st.Push(node);
+                }
+            }
+        }
+
+        #endregion
+
         /// <summary>
         /// 后序
         /// </summary>
@@ -53,6 +130,36 @@ namespace ConsoleApp1
             list.Add(tmp.data);
 
         }
+        #region 前序遍历
+        public IList<int> preorder1()
+        {//          3
+         //    1      5 
+         //  0   2
+            init();
+            List<int> list = new List<int>();
+            if (root==null)
+            {
+                return list;
+            }
+            Stack<BTreeNode> st = new Stack<BTreeNode>();
+            st.Push(root);
+            while (st.Count>0)
+            {
+                var node1 = st.Pop();
+                list.Add(node1.data);
+                if (node1.rchild!=null)
+                {
+                    st.Push(node1.rchild);
+                }              
+                if (node1.lchild!=null)
+                {                  
+                    st.Push(node1.lchild);
+                }
+
+            }
+            return list;
+        }
+       
         /// <summary>
         /// 前序
         /// </summary>
@@ -69,21 +176,8 @@ namespace ConsoleApp1
 
 
         }
-        public void orderTest()
-        { 
-            
-            list.Clear();
-            preorder(root);
-           
-            Console.WriteLine("前序" + string.Join(",",this. list));
-             list.Clear();
-            inorder(root);
-            Console.WriteLine("中序" + string.Join(",", list));
-            list.Clear();
-            postorder(root);
-            Console.WriteLine("后序" + string.Join(",", list));
 
-        }
+        #endregion
         /// <summary>
         /// 判断是不是二叉搜索树
         /// </summary>
@@ -92,11 +186,11 @@ namespace ConsoleApp1
             //1：中序遍历打印 完是个升序的集合
             list.Clear();
             inorder(root);
-            var newlist = new List<int>(list) ;
+            var newlist = new List<int>(list);
             newlist.Sort();
 
             bool isok = string.Join(",", list) == string.Join(",", newlist);
-            
+
         }
         public int MaxDepth(BTreeNode root)
         {
